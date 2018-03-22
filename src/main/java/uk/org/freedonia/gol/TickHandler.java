@@ -3,6 +3,7 @@ package uk.org.freedonia.gol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import uk.org.freedonia.data.Cell;
+import uk.org.freedonia.data.CellRow;
 import uk.org.freedonia.data.Grid;
 import uk.org.freedonia.data.GridReference;
 import uk.org.freedonia.gol.rules.OverpopulationRule;
@@ -29,18 +30,26 @@ public class TickHandler {
     @Autowired
     private ReproductionRule reproductionRule;
 
+    @Autowired
+    private GridGenerator gridGenerator;
+
     public Grid tick(Grid grid) {
         HashMap<GridReference, Cell>  cells = gridUtils.loadGridIntoMap(grid);
         Grid newGrid = new Grid(new ArrayList<>());
-        for(Cell cell : grid.getGridList()) {
-            List<Cell> adjoiningCells = gridUtils.getAdjoiningCells(cell.getGridReference(), cells);
-            Cell newCell = underpopulationRule.transformCell(cell,adjoiningCells);
-            newCell = overpopulationRule.transformCell(newCell, adjoiningCells);
-            newCell = reproductionRule.transformCell(newCell, adjoiningCells);
-            newGrid.getGridList().add(newCell);
+        List<Cell> allCells = new ArrayList<>();
+        for(List<Cell> row : grid.getGridList()) {
+            for (Cell cell : row) {
+                List<Cell> adjoiningCells = gridUtils.getAdjoiningCells(cell.getGridReference(), cells);
+                Cell newCell = underpopulationRule.transformCell(cell, adjoiningCells);
+                newCell = overpopulationRule.transformCell(newCell, adjoiningCells);
+                newCell = reproductionRule.transformCell(newCell, adjoiningCells);
+                allCells.add(newCell);
+            }
         }
-        return newGrid;
+        return gridGenerator.createGridFromCells(allCells);
     }
+
+
 
 
 

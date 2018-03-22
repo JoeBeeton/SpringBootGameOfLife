@@ -12,7 +12,7 @@ class GridGeneratorTest {
     public void testGridGenerator() {
         GridGenerator gen = new GridGenerator();
         Grid grid = gen.generateNewGrid(10,10);
-        assertEquals(100, grid.gridList.size());
+        assertEquals(10, grid.getGridList().size());
     }
 
 }

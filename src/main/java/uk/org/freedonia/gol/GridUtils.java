@@ -27,7 +27,6 @@ public class GridUtils {
         for(int newX = xMin; newX != xMax+1;newX++) {
             for(int newY = yMin; newY != yMax+1;newY++) {
                 GridReference ref = new GridReference(newX, newY);
-                System.out.println(ref);
                 if(gridMap.containsKey(ref)&& !gridReference.equals(ref)) {
                     adjoiningCells.add(gridMap.get(ref));
                 }
@@ -38,7 +37,7 @@ public class GridUtils {
 
     public HashMap<GridReference, Cell> loadGridIntoMap(Grid grid) {
         HashMap<GridReference,Cell> map = new HashMap<>();
-        grid.getGridList().forEach(e -> map.put(e.getGridReference(), e));
+        grid.getGridList().forEach(cellRow -> cellRow.stream().forEach(cell -> map.put(cell.getGridReference(), cell)));
         return map;
     }
 
