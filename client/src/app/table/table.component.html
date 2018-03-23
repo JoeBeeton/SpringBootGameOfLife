@@ -1,0 +1,39 @@
+
+<h2>Setup</h2>
+
+
+<form name="widthValue">
+  <input #widthBox value=40 type=number name="widthValue" ng-model="widthValue" required> : Width
+</form>
+<form name="heightValue">
+  <input #heightBox value=40 type=number name="heightValue" ng-model="heightValue" required> : Height
+</form>
+<button
+  (click)="refreshClick($event, heightBox.value, widthBox.value)"
+  type="button">
+  Refresh
+</button>
+<div class="celltable">
+<table>
+  <tr *ngFor="let a of cells;">
+    <td *ngFor="let c of a;"  (click)="switchCell(c)" >
+      <img *ngIf="c.cellstate === 'EMPTY'" src="empty.png">
+      <img *ngIf="c.cellstate === 'LIVE'" src="live.png">
+      <img *ngIf="c.cellstate === 'DEAD'" src="dead.png">
+    </td>
+  </tr>
+</table>
+
+</div>
+<div class="container">
+  <button
+    (click)="tickClick($event)"
+    type="button">
+    Tick
+  </button>
+</div>
+
+
+
+
+

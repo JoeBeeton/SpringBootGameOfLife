@@ -1,0 +1,20 @@
+reddish { color: red; }
+h1 {
+  color: red;
+}
+.container button {
+  display: block;
+  width: 90px;
+  height: 45px;
+  margin: 2px;
+  text-align: center;
+}
+
+.celltable table {
+    table-layout: auto;
+    width: 90%;
+}
+.celltable img {
+    width: 100%;
+    height: 100%;
+}
